@@ -1,0 +1,5 @@
+{
+  "name": "ASCII Canvas",
+  "description": "A monochrome, anonymous, collective drawing space using ASCII characters. Experience a tactile, reflective sketching environment where strokes accumulate into dense text-based forms.",
+  "requestFramePermissions": []
+}
