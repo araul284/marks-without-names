@@ -142,7 +142,6 @@ export const Canvas: React.FC<CanvasProps> = ({ onCancel, onPublish }) => {
     setIsExporting(true);
 
     try {
-      // Ensure font is loaded before drawing
       await document.fonts.load("14px 'IBM Plex Mono'");
 
       const canvas = document.createElement('canvas');
@@ -152,22 +151,20 @@ export const Canvas: React.FC<CanvasProps> = ({ onCancel, onPublish }) => {
       const fontSize = 16;
       ctx.font = `${fontSize}px 'IBM Plex Mono', monospace`;
       
-      // Calculate character dimensions for monospace
       const metrics = ctx.measureText('█');
       const charWidth = metrics.width;
-      const charHeight = fontSize; // Mono height usually matches font size in standard contexts
+      const charHeight = fontSize;
 
-      // Canvas dimensions with padding
       const padding = 60;
       canvas.width = charWidth * GRID_WIDTH + padding * 2;
       canvas.height = charHeight * GRID_HEIGHT + padding * 2;
 
-      // Draw background
-      ctx.fillStyle = '#000000';
+      // Draw background - Now White
+      ctx.fillStyle = '#FFFFFF';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw text
-      ctx.fillStyle = '#FFFFFF';
+      // Draw text - Now Black
+      ctx.fillStyle = '#000000';
       ctx.font = `${fontSize}px 'IBM Plex Mono', monospace`;
       ctx.textBaseline = 'top';
 
@@ -184,7 +181,6 @@ export const Canvas: React.FC<CanvasProps> = ({ onCancel, onPublish }) => {
         });
       });
 
-      // Download
       const dataUrl = canvas.toDataURL('image/png');
       const link = document.createElement('a');
       link.download = `ascii-artifact-${Date.now()}.png`;
@@ -198,42 +194,42 @@ export const Canvas: React.FC<CanvasProps> = ({ onCancel, onPublish }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-8 bg-black">
+    <div className="flex flex-col items-center justify-center min-h-screen p-8 bg-white text-black">
       <div className="mb-12 flex flex-wrap justify-center gap-10">
         <button 
           onClick={onCancel} 
           disabled={isPublishing || isExporting}
-          className="text-[10px] opacity-40 hover:opacity-100 uppercase tracking-[0.3em] disabled:opacity-10 transition-all"
+          className="text-[10px] text-neutral-400 hover:text-black uppercase tracking-[0.3em] disabled:opacity-10 transition-all"
         >
           [ Cancel ]
         </button>
         <button 
           onClick={handleUndo} 
           disabled={isPublishing || isExporting || history.length === 0}
-          className="text-[10px] opacity-40 hover:opacity-100 uppercase tracking-[0.3em] disabled:opacity-10 transition-all"
+          className="text-[10px] text-neutral-400 hover:text-black uppercase tracking-[0.3em] disabled:opacity-10 transition-all"
         >
           [ Undo ]
         </button>
         <button 
           onClick={downloadPng} 
           disabled={isPublishing || isExporting}
-          className="text-[10px] opacity-40 hover:opacity-100 uppercase tracking-[0.3em] disabled:opacity-10 transition-all"
+          className="text-[10px] text-neutral-400 hover:text-black uppercase tracking-[0.3em] disabled:opacity-10 transition-all"
         >
           {isExporting ? '[ Generating... ]' : '[ Export PNG ]'}
         </button>
         <button 
           onClick={handlePublish}
           disabled={isPublishing || isExporting}
-          className="text-[10px] font-bold border-b border-neutral-700 uppercase tracking-[0.3em] hover:border-white transition-all disabled:opacity-20"
+          className="text-[10px] font-bold border-b border-neutral-200 uppercase tracking-[0.3em] hover:border-black transition-all disabled:opacity-20"
         >
           {isPublishing ? 'Archiving...' : 'Publish to Collection'}
         </button>
       </div>
 
       {/* The Studio Frame */}
-      <div className="relative p-16 border border-neutral-900 bg-[#020202] shadow-2xl">
+      <div className="relative p-16 border border-neutral-100 bg-[#fefefe] shadow-lg">
         <div 
-          className="relative cursor-crosshair touch-none select-none"
+          className="relative cursor-crosshair touch-none select-none text-black"
           onPointerDown={handlePointerDown}
           onPointerUp={handlePointerUp}
           onPointerLeave={handlePointerUp}
@@ -243,16 +239,16 @@ export const Canvas: React.FC<CanvasProps> = ({ onCancel, onPublish }) => {
         </div>
         
         {/* Detail accents */}
-        <div className="absolute top-4 left-4 text-[8px] text-neutral-800 uppercase tracking-widest">
+        <div className="absolute top-4 left-4 text-[8px] text-neutral-300 uppercase tracking-widest">
           Studio Mode // Raw Input
         </div>
-        <div className="absolute bottom-4 right-4 text-[8px] text-neutral-800 uppercase tracking-widest">
+        <div className="absolute bottom-4 right-4 text-[8px] text-neutral-300 uppercase tracking-widest">
           {history.length} Ops
         </div>
       </div>
 
       <div className="mt-12 text-center max-w-md">
-        <div className="text-[10px] text-neutral-700 italic tracking-[0.1em] leading-relaxed">
+        <div className="text-[10px] text-neutral-400 italic tracking-[0.1em] leading-relaxed">
           The canvas captures the intensity of your movement. 
           Use [Cmd+Z] to step back through the history of the piece.
         </div>

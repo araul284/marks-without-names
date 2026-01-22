@@ -31,7 +31,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen relative z-10">
+    <div className="min-h-screen relative z-10 bg-white">
       {view === 'gallery' && (
         <Gallery 
           onSelect={(id) => {
@@ -59,7 +59,7 @@ const App: React.FC = () => {
       )}
 
       {/* Persistent Overlay Elements for that terminal feel */}
-      <div className="fixed bottom-4 left-4 text-[8px] text-neutral-800 pointer-events-none uppercase tracking-tighter">
+      <div className="fixed bottom-4 left-4 text-[8px] text-neutral-300 pointer-events-none uppercase tracking-tighter">
         ASCII-CANVAS-v1.0.0 // PERSISTENCE: LOCAL_STORAGE // MONOCHROME: TRUE
       </div>
     </div>
