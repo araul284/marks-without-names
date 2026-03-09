@@ -95,8 +95,8 @@ The site should feel like:
 This project is intentionally simple and vibecode-friendly.
 
 * HTML
-* CSS
-* Vanilla JavaScript
+* TypeScript
+* React
 
 Optional backend:
 
@@ -123,10 +123,19 @@ git clone <repo-url>
 
 ```
 /
+├── components
+      ├── ArtworkViewer.tsx
+      ├── ASCIIArt.tsx
+      ├── Canvas.tsx
+      └── Gallery.tsx
+├── services
+      └── storageService.ts
+├── App.tsx
+├── constants.ts
 ├── index.html        # Gallery view
-├── canvas.html       # Drawing view
-├── styles.css
-├── script.js
+├── index.tsx
+├── types.ts
+├── vite.config.ts
 ├── data/             # Stored artworks (JSON)
 └── README.md
 ```
